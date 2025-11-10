@@ -5,7 +5,7 @@
 #include <iostream>
 //#pragma once
 
-namespace CP { 
+namespace CP {
 
 template <typename T>
 class list
@@ -35,13 +35,13 @@ class list
 
         list_iterator(node *a) : ptr(a) { }
 
-        list_iterator& operator++() { 
-          ptr = ptr->next; 
+        list_iterator& operator++() {
+          ptr = ptr->next;
           return (*this);
         }
 
-        list_iterator& operator--() { 
-          ptr = ptr->prev; 
+        list_iterator& operator--() {
+          ptr = ptr->prev;
           return (*this);
         }
 
@@ -59,8 +59,8 @@ class list
 
         T& operator*() { return ptr->data; }
         T* operator->() { return &(ptr->data); }
-        bool operator==(const list_iterator& other) const { return other.ptr == ptr; }
-        bool operator!=(const list_iterator& other) const { return other.ptr != ptr; }
+        bool operator==(const list_iterator& other) { return other.ptr == ptr; }
+        bool operator!=(const list_iterator& other) { return other.ptr != ptr; }
     };
 
   public:
@@ -75,9 +75,9 @@ class list
     //-------------- constructor & copy operator ----------
 
     // copy constructor
-    list(const list<T>& a) :
+    list(list<T>& a) :
       mHeader( new node() ), mSize( 0 ) {
-      for (auto it = a.begin();it != a.end();it++) {
+      for (iterator it = a.begin();it != a.end();it++) {
         push_back(*it);
       }
     }
@@ -117,14 +117,6 @@ class list
     }
 
     iterator end() {
-      return iterator(mHeader);
-    }
-
-    iterator begin() const {
-      return iterator(mHeader->next);
-    }
-
-    iterator end() const {
       return iterator(mHeader);
     }
     //----------------- access -----------------
@@ -171,27 +163,15 @@ class list
     }
 
     void print() {
-      std::cout << "Size = " << mSize << "\n";
-      std::cout << "From FRONT to BACK: ";
-      for (auto it = begin();it!=end();it++) {
-          std::cout << *it << " ";
-//        std::cout << "\n" << it.ptr << " -> " << it.ptr->next;
-//        std::cout << "\n" << it.ptr->next << " <- " << it.ptr;
+      std::cout << " Header address = " << (mHeader) << std::endl;
+      int i = 0;
+      iterator before;
+      for (iterator it = begin();it!=end();before = it, it++,i++) {
+        std::cout << "Node " << i << ": " << *it;
+        std::cout << " (prev = " << it.ptr->prev << ", I'm at " << it.ptr << ", next = " << it.ptr->next << ")" <<  std:: endl;
       }
-//      std::cout << "\n" << end().ptr << " -> " << begin().ptr;
-//      std::cout << "\n" << begin().ptr << " <- " << end().ptr;
-      
-      std::cout << std::endl << "From BACK to FRONT: ";
-      auto it = end();
-      while (it != begin()) {
-        --it;
-        std::cout << *it << " ";
-      }
-      std::cout << "\n";
     }
-
-    void merge(list<list<T>> &ls);
-
+    #include "student.h"
 };
 
 }
