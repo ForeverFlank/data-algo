@@ -47,6 +47,19 @@
         "unordered_set": "cpp",
         "cassert": "cpp",
         "format": "c",
-        "span": "c"
+        "span": "c",
+        "charconv": "cpp",
+        "chrono": "cpp",
+        "ctime": "cpp",
+        "map": "cpp",
+        "ratio": "cpp",
+        "iomanip": "cpp",
+        "sstream": "cpp",
+        "cinttypes": "cpp",
+        "variant": "cpp",
+        "forward_list": "cpp",
+        "list": "cpp",
+        "stacktrace": "cpp",
+        "regex": "cpp"
     }
 }

@@ -8,53 +8,15 @@
 template <typename T, typename Comp >
 T CP::priority_queue<T, Comp>::get_kth(size_t k) const
 {
-    if (k == 3)
+    size_t max_size = (1 << k) - 1;
+    size_t size = std::min(mSize, max_size);
+    T arr[size];
+    for (size_t i = 0; i < size; i++)
     {
-        T m1 = mData[0], m2 = mData[1], m3 = mData[2];
-        if (mLess(m1, m2)) std::swap(m1, m2);
-        if (mLess(m1, m3)) std::swap(m1, m3);
-        if (mLess(m2, m3)) std::swap(m2, m3);
-        for (size_t i = 2; i < mSize; i++)
-        {
-            T d = mData[i];
-            if (mLess(m1, d))
-            {
-                m3 = m2;
-                m2 = m1;
-                m1 = d;
-            }
-            else if (mLess(m2, d))
-            {
-                m3 = m2;
-                m2 = d;
-            }
-            else if (mLess(m3, d))
-            {
-                m3 = d;
-            }
-        }
-        return m3;
+        arr[i] = mData[i];
     }
-    if (k == 2)
-    {
-        T m1 = mData[0], m2 = mData[1];
-        if (mLess(m1, m2)) std::swap(m1, m2);
-        for (size_t i = 1; i < mSize; i++)
-        {
-            T d = mData[i];
-            if (mLess(m1, d))
-            {
-                m2 = m1;
-                m1 = d;
-            }
-            else if (mLess(m2, d))
-            {
-                m2 = d;
-            }
-        }
-        return m2;
-    }
-    return mData[0];
+    std::sort(arr, arr + size, mLess);
+    return arr[size - k];
 }
 
 #endif
