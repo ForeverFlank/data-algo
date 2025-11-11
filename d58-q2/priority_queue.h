@@ -50,13 +50,13 @@ class priority_queue
       mData[idx] = tmp;
     }
 
-  public:
     void print() {
       for (size_t i = 0;i < mSize;i++)
         std::cout << mData[i] << " ";
       std::cout << std::endl;
     }
 
+  public:
     //-------------- constructor ----------
 
     // copy constructor
@@ -100,10 +100,6 @@ class priority_queue
       return mSize;
     }
 
-    void clear() {
-      mSize = 0;
-    }
-
     //----------------- access -----------------
     const T& top() {
       if (size() == 0) throw std::out_of_range("index of out range") ;
@@ -125,8 +121,6 @@ class priority_queue
       mSize--;
       fixDown(0);
     }
-
-    T get_kth(size_t k) const;
 
 
 };
