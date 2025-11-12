@@ -1,0 +1,2 @@
+#include<bits/stdc++.h>
+using namespace std;set<string>r;void p(string s,int n,int a,int b,int c){if(!n--){r.insert(s);return;}if(a)p(s+'A',n,a-1,b,c);if(b)p(s+'B',n,a,b-1,c);if(c)p(s+'C',n,a,b,c-1);}int n,a,b,c;main(){cin>>n>>a>>b>>c;p("",n,a,b,c);cout<<r.size()<<"\n";for(auto i:r)cout<<i<<"\n";}
