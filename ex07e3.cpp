@@ -9,49 +9,43 @@ int main()
 {
     int nv, ne;
     cin >> nv >> ne;
-    vector<vector<int>> adj(nv, vector<int>(nv, 0));
+    vector<vector<int>> adj(nv);
     vector<int> count(nv, 0);
     vector<int> color(nv, 1);
-    unordered_set<int> traversed;
 
     for (int i = 0; i < ne; i++)
     {
         int u, v;
         cin >> u >> v;
-        adj[u][v] = 1;
-        adj[v][u] = 1;
-        count[u]++;
+        adj[u].push_back(v);
+        // adj[v].push_back(u);
+        // count[u]++;
         count[v]++;
     }
 
     queue<int> q;
-    q.push(0);
+    for (int i = 0; i < nv; i++)
+        if (count[i] == 0)
+            q.push(i);
 
     while (q.size())
     {
-        int n = q.size();
-        for (int i = 0; i < n; i++)
+        int u = q.front();
+        q.pop();
+        // cout << u << endl;
+
+        // if (traversed.find(u) != traversed.end()) continue;
+        // traversed.insert(u);
+
+        for (int &v : adj[u])
         {
-            int u = q.front();
-            q.pop();
-            // cout << u << endl;
+            count[v]--;
 
-            // if (traversed.find(u) != traversed.end()) continue;
-            // traversed.insert(u);
+            if (count[v] == 0)
+                q.push(v);
 
-            for (int v = 0; v < nv; v++)
-            {
-                if (adj[u][v] == 0) continue;
-
-                count[v]--;
-
-                if (count[v] == 0)
-                    q.push(v);
-
-                if (color[v] <= color[u])
-                    color[v] = color[u] + 1;
-            }
-
+            if (color[v] <= color[u])
+                color[v] = color[u] + 1;
         }
     }
 
